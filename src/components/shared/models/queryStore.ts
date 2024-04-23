@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { action, makeAutoObservable, observable } from 'mobx';
 
 export interface Todo {
   userId: number;
@@ -6,32 +6,17 @@ export interface Todo {
   title: string;
   completed: boolean;
 }
-
 class QueryStore {
   todos: Todo[] = [];
-  isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
+    // this.fetchTodos();
   }
 
-  async fetchTodos() {
-    this.isLoading = true;
-    try {
-      const response = await fetch(
-        'https://jsonplaceholder.typicode.com/todos'
-      );
-      if (!response.ok) {
-        throw new Error('Error');
-      }
-      const data = await response.json();
-      this.todos = data;
-    } catch (error) {
-      console.error('Error fetching todos:', error);
-    } finally {
-      this.isLoading = false;
-    }
-  }
+  setTodos = (todos: Todo[]) => {
+    this.todos = todos;
+  };
 }
 
 export default new QueryStore();

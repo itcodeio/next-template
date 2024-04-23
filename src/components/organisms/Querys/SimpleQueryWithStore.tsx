@@ -1,18 +1,30 @@
-import { FC } from 'react';
+'use client';
+import { FC, useEffect } from 'react';
 import useSWR from 'swr';
 import Preloader from '../../atoms/UI/Preloader';
-import { fetcher } from '../../shared/utils/fetcher';
 import { Todo } from '../../shared/models/queryStore';
+import { useStores } from '@/components/shared/models/RootStoreProvider';
+import { observer } from 'mobx-react-lite';
+import { fetcher } from '@/components/shared/utils/fetcher';
 
-const SimpleQuery: FC = () => {
-  const { data, isLoading } = useSWR<Todo[]>('https://jsonplaceholder.typicode.com/todos', (url: string) =>
-    fetcher(url, 'GET')
+const SimpleQueryWithStore: FC = () => {
+  const {
+    queryStore: { todos, setTodos }
+  } = useStores();
+
+  const { data, error, isLoading } = useSWR<Todo[]>(
+    'https://jsonplaceholder.typicode.com/todos',
+    (url: string) => fetcher(url, 'GET')
   );
+
+  useEffect(() => {
+    data && setTodos(data);
+  }, [data, error]);
 
   return (
     <Preloader isLoading={isLoading}>
       <>
-        {data?.map((item) => (
+        {todos.map((item) => (
           <div key={item.id}>
             <>{item.title}</>
           </div>
@@ -22,4 +34,4 @@ const SimpleQuery: FC = () => {
   );
 };
 
-export default SimpleQuery;
+export default observer(SimpleQueryWithStore);
