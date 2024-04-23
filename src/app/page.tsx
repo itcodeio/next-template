@@ -2,7 +2,7 @@
 import MultiTabs from '@/components/atoms/UI/MultiTabs';
 import Tooltip from '@/components/atoms/UI/Tooltip';
 import AddBtn from '@/components/molecules/Buttons/AddBtn';
-import { useStores } from '@/components/shared/models/RootStoreProvider';
+import { useStores } from '@/components/shared/providers/RootStoreProvider';
 import { observer } from 'mobx-react-lite';
 import { NextPage } from 'next';
 

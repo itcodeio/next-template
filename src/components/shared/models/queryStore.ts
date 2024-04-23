@@ -1,4 +1,5 @@
-import { action, makeAutoObservable, observable } from 'mobx';
+import axios, { AxiosResponse } from 'axios';
+import { makeAutoObservable } from 'mobx';
 
 export interface Todo {
   userId: number;
@@ -11,11 +12,21 @@ class QueryStore {
 
   constructor() {
     makeAutoObservable(this);
-    // this.fetchTodos();
   }
 
   setTodos = (todos: Todo[]) => {
     this.todos = todos;
+  };
+
+  getTodos = () => {
+    axios
+      .get('https://jsonplaceholder.typicode.com/todos')
+      .then(({ data }: AxiosResponse<Todo[]>) => {
+        this.setTodos(data);
+      })
+      .catch((err) => {
+        console.log('Error', err);
+      });
   };
 }
 

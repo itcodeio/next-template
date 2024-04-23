@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import StoreProvider from '@/components/shared/models/RootStoreProvider';
+import StoreProvider from '@/components/shared/providers/RootStoreProvider';
 import Sidebar from '@/components/atoms/UI/Sidebar';
 import Popup from '@/components/shared/popups/popup';
 import './globals.css';
+import QueryClientProvider from '@/components/shared/providers/QueryClientProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,8 +22,10 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <StoreProvider>
-          <Sidebar>{children}</Sidebar>
-          <Popup />
+          <QueryClientProvider>
+            <Sidebar>{children}</Sidebar>
+            <Popup />
+          </QueryClientProvider>
         </StoreProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 'use client';
 import { FC, ReactNode, createContext, useContext } from 'react';
-import RootStore from './RootStore';
+import RootStore from '../models/RootStore';
 
 const RootStoreContext = createContext<RootStore | null>(null);
 

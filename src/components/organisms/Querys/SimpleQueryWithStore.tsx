@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react';
 import useSWR from 'swr';
 import Preloader from '../../atoms/UI/Preloader';
 import { Todo } from '../../shared/models/queryStore';
-import { useStores } from '@/components/shared/models/RootStoreProvider';
+import { useStores } from '@/components/shared/providers/RootStoreProvider';
 import { observer } from 'mobx-react-lite';
 import { fetcher } from '@/components/shared/utils/fetcher';
 

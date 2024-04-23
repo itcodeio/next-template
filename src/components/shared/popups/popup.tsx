@@ -1,7 +1,7 @@
 'use client';
 import { FC, useRef } from 'react';
 import SimplePopup from './SimplePopup/SimplePopup';
-import { useStores } from '../models/RootStoreProvider';
+import { useStores } from '../providers/RootStoreProvider';
 import Button from '../../atoms/Forms/Button';
 import { observer } from 'mobx-react-lite';
 
